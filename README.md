@@ -11,6 +11,7 @@ Opti Hub is built to help researchers:
 
 ## How It Works
 Opti Hub reads `registry.toml` to discover optimizer packages, install sources, and import paths. The file is intended to be both a registry and a learning map you can expand.
+This registry is actively updated. If you have a newly developed optimizer you would like added, please open an issue.
 
 ## Install
 If you are on Python 3.11+, `tomllib` is built in. For Python < 3.11, install `tomli`.
@@ -52,4 +53,3 @@ Feel free to add new entries and submit improvements.
 ## Notes
 - Installation is done through `pip` in the active Python environment.
 - Some optimizers may require specific hyperparameters; consult their upstream docs.
-
