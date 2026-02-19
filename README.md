@@ -2,7 +2,7 @@
 Opti Hub is a lightweight registry and installer for state‑of‑the‑art optimizers used in modern ML and LLM research.
 
 ## Why This Exists
-Since the advent of Muon, we have seen a resurgence in the creation of new optimizers for machine learning, especially for large language models. Many of these methods appear first in papers or GitHub repositories and are not yet integrated into mainstream frameworks like PyTorch.
+Since the advent of Muon, we have seen a resurgence in the utilization/creation of new optimizers for machine learning, especially for large language models. Many of these methods appear first in papers or GitHub repositories and are not yet integrated into mainstream frameworks like PyTorch.
 
 Opti Hub is built to help researchers:
 - quickly install and try new or SOTA optimizers
@@ -14,11 +14,28 @@ Opti Hub reads `registry.toml` to discover optimizer packages, install sources, 
 This registry is actively updated. If you have a newly developed optimizer you would like added, please open an issue.
 
 ## Install
-If you are on Python 3.11+, `tomllib` is built in. For Python < 3.11, install `tomli`.
+
+Install directly from GitHub:
 
 ```bash
-pip install tomli
+pip install git+https://github.com/chen-dylan-liang/opti-hub.git
 ```
+
+Install from a specific branch:
+
+```bash
+pip install "git+https://github.com/chen-dylan-liang/opti-hub.git@main"
+```
+
+Install locally for development:
+
+```bash
+pip install -e .
+```
+
+Dependency note:
+- Python 3.11+: uses built-in `tomllib`
+- Python < 3.11: installs `tomli` automatically via package dependency
 
 ## Example Usage
 Basic installation of optimizers from the registry:
