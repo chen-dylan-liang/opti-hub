@@ -1,0 +1,69 @@
+# registry.toml
+# This file serves as the central registry for all SOTA optimizers supported by the tool, listed in reverse chronical order.
+# You can easily add new optimizers by appending a new [optimizers.Name] block.
+
+[optimizers.Muon]
+# Source repository for the Muon optimizer
+source = "git+https://github.com/KellerJordan/Muon.git"
+description = "Matrix orthogonalization-based optimizer using Newton-Schulz iteration, highly scalable for LLMs."
+module_path = "muon"
+class_name = "Muon"
+paper = "https://arxiv.org/abs/2502.16982"  # "Muon is Scalable for LLM Training"
+year= 2024
+
+[optimizers.Galore]
+# The official PyPI package from the authors
+source = "galore-torch"
+description = "Memory-Efficient LLM Training by Gradient Low-Rank Projection. Allows full-parameter learning with less memory."
+module_path = "galore_torch"
+class_name = "GaLoreAdamW" # GaLore offers wrappers like GaLoreAdamW, GaLoreAdamW8bit
+paper = "https://arxiv.org/abs/2403.03507"
+year = 2024
+
+[optimizers.Swan]
+# A novel stateless optimizer using GradNorm and GradWhitening
+source = "git+https://github.com/mlresearch/swan.git"
+description = "SGD with Whitening And Normalization. A completely stateless optimizer for LLM training."
+module_path = "swan"
+class_name = "Swan"
+paper = "https://arxiv.org/abs/2412.13148"  # "SWAN: SGD with Normalization and Whitening Enables Stateless LLM Training"
+year = 2024
+
+[optimizers.Soap]
+# NVIDIA's Emerging Optimizers repo is currently a reliable source for Soap
+source = "git+https://github.com/NVIDIA-NeMo/Emerging-Optimizers.git"
+description = "Improving and Stabilizing Shampoo using Adam. Uses a Kullback-Leibler perspective for preconditioners."
+module_path = "emerging_optimizers.soap"
+class_name = "SOAP"
+paper = "https://arxiv.org/abs/2409.11321"
+year = 2024
+
+[optimizers.Lion]
+# Using the highly popular and stable lucidrains implementation on PyPI
+source = "lion-pytorch"
+description = "Symbolic Discovery of Optimization Algorithms. A highly memory-efficient optimizer discovered via program search."
+module_path = "lion_pytorch"
+class_name = "Lion"
+paper = "https://arxiv.org/abs/2302.06675"
+year = 2023
+
+[optimizers.Sophia]
+# Using the official implementation repository from the authors
+source = "git+https://github.com/Liuhong99/Sophia.git"
+description = "A lightweight second-order optimizer using a stochastic estimate of the diagonal Hessian."
+module_path = "sophia"
+class_name = "SophiaG"
+paper = "https://arxiv.org/abs/2305.14342"  # "Sophia: A Scalable Stochastic Second-order Optimizer..."
+year = 2023
+
+[optimizers.Shampoo]
+# Commonly accessed via the torch-optimizer package in PyPI
+source = "torch-optimizer"
+description = "Preconditioned stochastic tensor optimization that utilizes structural information of parameters."
+module_path = "torch_optimizer"
+class_name = "Shampoo"
+paper = "https://arxiv.org/abs/1802.09568"  # "Shampoo: Preconditioned Stochastic Tensor Optimization"
+year = 2018
+
+
+
