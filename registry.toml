@@ -20,14 +20,15 @@ class_name = "GaLoreAdamW" # GaLore offers wrappers like GaLoreAdamW, GaLoreAdam
 paper = "https://arxiv.org/abs/2403.03507"
 year = 2024
 
-# [optimizers.Swan]
+[optimizers.Swan]
 # A novel stateless optimizer using GradNorm and GradWhitening
-# source = not yet available, but will be added once the official implementation is released by the authors
-# description = "SGD with Whitening And Normalization. A completely stateless optimizer for LLM training."
-# module_path = "swan"
-# class_name = "Swan"
-# paper = "https://arxiv.org/abs/2412.13148"  # "SWAN: SGD with Normalization and Whitening Enables Stateless LLM Training"
-# year = 2024
+source = "not yet available, but will be added once the official implementation is released by the authors"
+description = "SGD with Whitening And Normalization. A completely stateless optimizer for LLM training."
+module_path = "swan"
+class_name = "Swan"
+installable = false
+paper = "https://arxiv.org/abs/2412.13148"  # "SWAN: SGD with Normalization and Whitening Enables Stateless LLM Training"
+year = 2024
 
 [optimizers.Soap]
 # NVIDIA's Emerging Optimizers repo is currently a reliable source for Soap
@@ -53,6 +54,7 @@ source = "git+https://github.com/Liuhong99/Sophia.git"
 description = "A lightweight second-order optimizer using a stochastic estimate of the diagonal Hessian."
 module_path = "sophia"
 class_name = "SophiaG"
+installable = false
 paper = "https://arxiv.org/abs/2305.14342"  # "Sophia: A Scalable Stochastic Second-order Optimizer..."
 year = 2023
 
@@ -64,6 +66,5 @@ module_path = "torch_optimizer"
 class_name = "Shampoo"
 paper = "https://arxiv.org/abs/1802.09568"  # "Shampoo: Preconditioned Stochastic Tensor Optimization"
 year = 2018
-
 
 

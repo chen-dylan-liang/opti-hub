@@ -38,7 +38,12 @@ class OptiHub:
                 print(f"⚠️ Unknown optimizer: '{name}'. Supported: {list(self.registry.keys())}")
                 continue
                 
-            source = self.registry[name]["source"]
+            opt_info = self.registry[name]
+            if opt_info.get("installable", True) is False:
+                print(f"⚠️ Skipping '{name}': not pip-installable yet (see registry.toml).")
+                continue
+                
+            source = opt_info["source"]
             packages_to_install.append(source)
             print(f"⏳ Queued '{name}' for installation from: {source}")
 
