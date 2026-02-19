@@ -27,7 +27,7 @@ Basic installation of optimizers from the registry:
 from opti_hub import OptiHub
 
 tool = OptiHub()
-tool.install("Muon", "Swan")
+tool.install("Muon", "Shampoo")
 ```
 
 Instantiate an optimizer by name:

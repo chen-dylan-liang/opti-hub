@@ -20,14 +20,14 @@ class_name = "GaLoreAdamW" # GaLore offers wrappers like GaLoreAdamW, GaLoreAdam
 paper = "https://arxiv.org/abs/2403.03507"
 year = 2024
 
-[optimizers.Swan]
+# [optimizers.Swan]
 # A novel stateless optimizer using GradNorm and GradWhitening
-source = "git+https://github.com/mlresearch/swan.git"
-description = "SGD with Whitening And Normalization. A completely stateless optimizer for LLM training."
-module_path = "swan"
-class_name = "Swan"
-paper = "https://arxiv.org/abs/2412.13148"  # "SWAN: SGD with Normalization and Whitening Enables Stateless LLM Training"
-year = 2024
+# source = not yet available, but will be added once the official implementation is released by the authors
+# description = "SGD with Whitening And Normalization. A completely stateless optimizer for LLM training."
+# module_path = "swan"
+# class_name = "Swan"
+# paper = "https://arxiv.org/abs/2412.13148"  # "SWAN: SGD with Normalization and Whitening Enables Stateless LLM Training"
+# year = 2024
 
 [optimizers.Soap]
 # NVIDIA's Emerging Optimizers repo is currently a reliable source for Soap

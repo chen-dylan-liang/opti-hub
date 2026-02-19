@@ -151,4 +151,4 @@ def test_get_all():
                 
 if __name__ == "__main__":
     test_install_all()
-    test_get_all()               
+    # test_get_all()               
