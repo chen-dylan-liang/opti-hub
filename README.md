@@ -45,6 +45,7 @@ optimizer = tool.get_optimizer("Muon", model.parameters(), lr=1e-3, weight_decay
 ## Registry
 The `registry.toml` file is the source of truth. It declares:
 - the package or repo to install
+- the paper or blog where it lives
 - the import module path
 - the optimizer class name
 
