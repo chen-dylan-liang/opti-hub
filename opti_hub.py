@@ -74,6 +74,73 @@ class OptiHub:
         if name not in self.registry:
             raise ValueError(f"⚠️ Unknown optimizer '{name}'. Supported: {list(self.registry.keys())}")
         
+        if name == "Muon":
+            # Special handling based on the official Muon usage pattern.
+            # Prefer explicit param_groups with `use_muon` flags, otherwise build a heuristic split.
+            import torch
+
+            param_groups = kwargs.pop("param_groups", None)
+            if param_groups is None and isinstance(params, list) and params:
+                if isinstance(params[0], dict) and "use_muon" in params[0]:
+                    param_groups = params
+
+            if param_groups is None:
+                params_list = list(params)
+                muon_params = []
+                adam_params = []
+
+                if params_list and isinstance(params_list[0], tuple) and len(params_list[0]) == 2:
+                    # named_parameters() style: (name, param)
+                    for param_name, p in params_list:
+                        if p.ndim >= 2 and "embed" not in param_name and "head" not in param_name:
+                            muon_params.append(p)
+                        else:
+                            adam_params.append(p)
+                else:
+                    # Best-effort split based on dimensionality
+                    muon_params = [p for p in params_list if p.ndim >= 2]
+                    adam_params = [p for p in params_list if p.ndim < 2]
+                    print(
+                        "⚠️ Muon: using a heuristic split (ndim>=2 vs <2). "
+                        "For best results, pass explicit param_groups with `use_muon`, "
+                        "or use named_parameters() to exclude embeddings/heads."
+                    )
+
+                if not muon_params:
+                    raise ValueError(
+                        "❌ Muon requires >=2D parameters for the Muon group. "
+                        "Pass explicit param_groups with `use_muon` for full control."
+                    )
+
+                muon_group = dict(
+                    params=muon_params,
+                    use_muon=True,
+                    lr=kwargs.pop("lr", 0.02),
+                    weight_decay=kwargs.pop("weight_decay", 0),
+                    momentum=kwargs.pop("momentum", 0.95),
+                )
+                adam_group = dict(
+                    params=adam_params,
+                    use_muon=False,
+                    lr=kwargs.pop("adam_lr", 3e-4),
+                    betas=kwargs.pop("adam_betas", (0.9, 0.95)),
+                    weight_decay=kwargs.pop("adam_weight_decay", 0),
+                    eps=kwargs.pop("adam_eps", 1e-10),
+                )
+                param_groups = [muon_group, adam_group]
+
+            if kwargs:
+                raise ValueError(f"❌ Unused keyword arguments for Muon: {sorted(kwargs.keys())}")
+
+            module = importlib.import_module("muon")
+            if torch.distributed.is_available() and torch.distributed.is_initialized():
+                optimizer_class = getattr(module, "MuonWithAuxAdam")
+            else:
+                optimizer_class = getattr(module, "SingleDeviceMuonWithAuxAdam")
+
+            print("✅ Successfully loaded Muon (with aux Adam groups)")
+            return optimizer_class(param_groups)
+
         opt_info = self.registry[name]
         module_path = opt_info.get("module_path")
         class_name = opt_info.get("class_name")

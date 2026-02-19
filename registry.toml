@@ -7,7 +7,7 @@
 source = "git+https://github.com/KellerJordan/Muon.git"
 description = "Matrix orthogonalization-based optimizer using Newton-Schulz iteration, highly scalable for LLMs."
 module_path = "muon"
-class_name = "Muon"
+class_name = "MuonWithAuxAdam/SingleDeviceMuonWithAuxAdam" # Muon offers both a single-device and distributed implementation, with and without auxiliary Adam states.
 paper = "https://arxiv.org/abs/2502.16982"  # "Muon is Scalable for LLM Training"
 year= 2024
 
